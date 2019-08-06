@@ -1,0 +1,101 @@
+-- Databse created
+
+CREATE  DATABASE EMP1
+
+-- Table created
+
+CREATE TABLE employee1  
+(  
+   id INTEGER PRIMARY KEY,  
+   first_name VARCHAR(10),  
+   last_name VARCHAR(10),  
+   salary DECIMAL(10,2),  
+   country VARCHAR(20),  
+) 
+-- Values inserted
+
+INSERT INTO employee1  
+VALUES  
+  
+   (1, 'Arjun','Sharma', 15000, 'India')  
+INSERT INTO  employee1
+VALUES  
+(  
+   2, 'Shiva', 'Sharma', 12000, 'Australia'  
+)  
+INSERT INTO employee1  
+VALUES  
+   (3, 'Saurabh', 'Gupta', 18000, 'USA')  
+INSERT INTO employee1  
+VALUES  
+(  
+   4, 'Rishav', 'Updhayay', 16000, 'India'  
+)  
+INSERT INTO employee1
+VALUES  
+(  
+   5, 'Nischay', 'Updhayay', 17000, 'India'); 
+
+   -- creating stored procedure to insert
+   
+   CREATE PROCEDURE  insertion
+(  
+   @id INTEGER,  
+   @first_name VARCHAR(10),  
+   @last_name VARCHAR(10),  
+   @salary varchar(20),  
+   @country VARCHAR(20)
+   
+) 
+AS  
+BEGIN    
+insert into employee1(id,first_name,last_name,salary,country) 
+values( @id, @first_name, @last_name, @salary, @country)  
+END;
+exec insertion 1111,raj,kishan,23000,pakistan
+insert into employee1 values(111,'ritu','raj',23456,'india')
+Select * from employee1
+
+-- Creating stored procedure for deletion
+
+CREATE PROCEDURE deletion
+(  
+  
+   @first_name VARCHAR(10)
+   
+) 
+AS  
+BEGIN 
+DELETE FROM employee1
+where
+first_name=@first_name
+END;
+exec deletion raj
+select * from employee1
+delete from employee1
+where
+first_name='raj'
+-- Trigger created
+CREATE TRIGGER disp 
+ON employee1
+AFTER INSERT,DELETE
+AS
+BEGIN
+SELECT * FROM employee1
+END
+exec deletion raAAj
+
+-- creating index
+
+CREATE INDEX sl_no
+ON employee1(first_name,last_name)
+Select * from employee1 with (index(sl_no)) where last_name='gupta'
+
+--creating table and linking with old table using foreign key concept
+
+CREATE table persemployee(peremp_id int primary key,age int,gender varchar(2),account_no int,id int foreign key references employee1(id))
+insert into persemployee values(1,22,'m',123,1),
+(2,23,'m',1234,2),(3,24,'m',12345,3),(4,25,'m',123456,4),(5,25,'m',12345,5)
+
+
+select * from employee1,persemployee where
